@@ -2,11 +2,8 @@ from ntlm import HTTPNtlmAuthHandler
 import urllib2
 import re
 import urllib
-<<<<<<< HEAD
 import mechanize
 
-=======
->>>>>>> 8127da28404b3d0357c2cd94f21cee46235a918d
 
 class PythonLeo:
 	def __init__(self, username="RP\\12345", password="abcdef"):
@@ -14,7 +11,6 @@ class PythonLeo:
 		self.password = password
 		self.password_manager = urllib2.HTTPPasswordMgrWithDefaultRealm()
 		ntlm_auth = HTTPNtlmAuthHandler.HTTPNtlmAuthHandler(self.password_manager)
-<<<<<<< HEAD
 		opener = mechanize.build_opener(ntlm_auth)
 		mechanize.install_opener(opener)
 	
@@ -34,21 +30,15 @@ class PythonLeo:
 		self.password_manager.add_password(None, request_url, self.username, self.password)
 		req = mechanize.Request(request_url,data)
 		return req
-=======
-		opener = urllib2.build_opener(ntlm_auth)
-		urllib2.install_opener(opener)
 	
 	def open_url(self, url):
 		self.password_manager.add_password(None, url, self.username, self.password)
 		response = urllib2.urlopen(url)
 		return response
->>>>>>> 8127da28404b3d0357c2cd94f21cee46235a918d
 		
 	def parse_id(self, which_id, from_url):
 		response_id = re.findall(which_id+"=(.{38})",from_url.read())
 		return response_id
-		
-<<<<<<< HEAD
 	def parse_author_evaluator_id(self, from_url):	# evaluator_id included
 		author_evaluator_dic = {}
 		author_evaluatorlist = re.findall(r"'\d{5,6}', '.{38}'", from_url.read())
@@ -57,11 +47,9 @@ class PythonLeo:
 			evaluatorid = author_evaluatorlist[i][10:-1]
 			author_evaluator_dic[authorid] = evaluatorid
 		return author_evaluator_dic
-=======
 	def parse_student_id(self, from_url):	# evaluator_id included
 		response_id = re.findall("'\d{5,6}'", from_url.read())
 		return response_id
->>>>>>> 8127da28404b3d0357c2cd94f21cee46235a918d
 
 		
 	def get_qnnid(self, from_url):
@@ -72,7 +60,6 @@ class PythonLeo:
 	def get_evalid(self, from_url):
 		evalidhtml = self.open_url(from_url).read().splitlines()[-9]
 		evalidhtml = re.findall("(\\{.*?\\})", evalidhtml)
-<<<<<<< HEAD
 		return evalidhtml[0]	
 	
 	def get_quizurl(self,qnnreq):
@@ -115,9 +102,3 @@ class PythonLeo:
 		submit = form.click()
 		data = submit.get_data()
 		return data
-=======
-		return evalidhtml[0]
-
-
-	
->>>>>>> 8127da28404b3d0357c2cd94f21cee46235a918d
